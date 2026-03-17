@@ -494,7 +494,78 @@
       letter-spacing: 0.05em;
     }
 
-    /* ── animations ── */
+    /* ── contact section ── */
+    .contact {
+      position: relative;
+      z-index: 2;
+      padding: 120px 48px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      height: 140px;
+    }
+
+    .form-submit {
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+
+    .form-success {
+      display: none;
+      padding: 16px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      margin-top: 16px;
+    }
+
+    /* ── responsive contact ── */
+    @media (max-width: 768px) {
+      .contact { padding: 80px 24px; }
+    }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -568,9 +639,7 @@
     </p>
     <div class="hero-cta">
       <a href="#products" class="btn-primary">View Products</a>
-      <a href="/cdn-cgi/l/email-protection#d5b6babba1b4b6a195a6a1bcb9b9a6a1b4b6beb9b4b7a6fbb6bab8" class="btn-ghost">
-        Get in touch →
-      </a>
+      <a href="#contact" class="btn-ghost">Get in touch →</a>
     </div>
     <div class="scroll-indicator">
       <span class="scroll-label">scroll</span>
@@ -616,8 +685,40 @@
     </div>
     <div class="about-body">
       <p>Stillstack Labs is an independent software company focused on building focused, no-nonsense Windows utilities. No venture capital. No subscriptions. No tracking.</p>
-      <p>Every product is built to solve one problem well</p>
+      <p>Every product is built to solve one problem well — then gets out of your way.</p>
       <p>Based in Virginia Beach, VA.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-label">Get in touch</div>
+    <p style="font-size:13px;color:var(--dim);line-height:1.8;margin-top:-32px">
+      Questions, feedback, or just want to say hi — fill out the form and I'll get back to you.
+    </p>
+
+    <form class="contact-form" action="https://formspree.io/f/xbdzznar" method="POST" id="contactForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary" style="cursor:pointer;font-family:var(--mono)">
+          SEND MESSAGE
+        </button>
+      </div>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      ✓ Message sent — I'll get back to you soon.
     </div>
   </section>
 
@@ -634,6 +735,26 @@
     const cursorRing = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
 
+    // contact form — AJAX submit so page doesn't redirect
+    const form    = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    if (form) {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const res  = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display    = 'none';
+          success.style.display = 'block';
+        }
+      });
+    }
+
+    // custom cursor — only on real pointer devices
     if (window.matchMedia('(pointer: fine)').matches) {
       document.body.style.cursor = 'none';
 
@@ -653,8 +774,7 @@
 
       document.querySelectorAll('a, button, .product-card').forEach(el => {
         el.addEventListener('mouseenter', () => {
-          cursor.style.width = cursorRing.style.width = '16px';
-          cursor.style.height = cursorRing.style.height = '16px';
+          cursor.style.width = '16px'; cursor.style.height = '16px';
           cursorRing.style.width = '48px'; cursorRing.style.height = '48px';
         });
         el.addEventListener('mouseleave', () => {
