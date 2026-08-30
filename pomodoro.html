@@ -1,1 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus — Stillstack Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0F;--surface:#1A1A24;--border:#2A2A38;
+  --text:#E8E8E8;--muted:#6E6E88;--accent:#4A9EFF;--radius:10px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 72px}
+
+header{display:flex;align-items:center;gap:10px;margin-bottom:52px;
+  align-self:flex-start;max-width:460px;width:100%;margin-left:auto;margin-right:auto}
+.logo-mark{width:26px;height:26px;background:var(--accent);border-radius:6px;display:grid;place-items:center;flex-shrink:0}
+.logo-text{font-size:12px;font-weight:600;letter-spacing:.09em;color:var(--muted);text-transform:uppercase}
+
+.modes{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:4px;margin-bottom:44px}
+.mode-btn{background:none;border:none;color:var(--muted);font-family:'Inter',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+  padding:6px 14px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
+.mode-btn.active{background:var(--border);color:var(--text)}
+.mode-btn:hover:not(.active){color:var(--text)}
+
+.timer-wrap{position:relative;width:250px;height:250px;margin-bottom:36px}
+.ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--surface);stroke-width:5}
+.ring-progress{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;
+  transition:stroke-dashoffset .95s linear,stroke .5s ease}
+.timer-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.timer-display{font-family:'JetBrains Mono',monospace;font-size:64px;font-weight:300;
+  letter-spacing:-.02em;line-height:1;color:var(--text)}
+.timer-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.controls{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+.btn-icon{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface);color:var(--muted);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .15s,color .15s}
+.btn-icon:hover{border-color:var(--accent);color:var(--text)}
+.btn-primary{width:62px;height:62px;border-radius:50%;border:none;background:var(--accent);
+  color:#fff;cursor:pointer;display:grid;place-items:center;
+  transition:transform .1s,background .3s;box-shadow:0 0 24px rgba(74,158,255,.18)}
+.btn-primary:hover{transform:scale(1.06)}
+.btn-primary:active{transform:scale(.97)}
+
+.session-dots{display:flex;gap:8px;margin-bottom:36px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .3s}
+.dot.done{background:var(--accent)}
+
+.settings-row{display:flex;gap:10px;align-items:center;margin-bottom:44px}
+.settings-row label{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.num-input{width:50px;background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;
+  padding:5px 4px;outline:none;transition:border-color .15s}
+.num-input:focus{border-color:var(--accent)}
+.sep{color:var(--border);font-size:16px}
+
+.log-section{width:100%;max-width:360px}
+.log-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.log-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.log-clear{background:none;border:none;font-size:11px;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;padding:0}
+.log-clear:hover{color:#FF4A4A}
+.log-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.log-item{display:flex;justify-content:space-between;align-items:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:7px;
+  padding:8px 12px;font-size:12px;animation:slide-in .18s ease}
+.log-item-label{color:var(--text)}
+.log-item-time{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px}
+.log-empty{font-size:12px;color:var(--muted);text-align:center;padding:20px 0}
+.shortcut-hint{margin-top:18px;font-size:11px;color:var(--muted);letter-spacing:.05em;text-align:center}
+kbd{background:var(--surface);border:1px solid var(--border);border-radius:4px;
+  padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:10px}
+
+@keyframes slide-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.ring-progress{transition:none}.log-item{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="2" width="5" height="5" rx="1" fill="white" opacity=".9"/>
+      <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity=".6"/>
+      <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity=".6"/>
+      <rect x="9" y="9" width="5" height="5" rx="1" fill="white" opacity=".3"/>
+    </svg>
+  </div>
+  <span class="logo-text">Stillstack Labs · Focus</span>
+</header>
+
+<div class="modes">
+  <button class="mode-btn active" data-mode="focus">Focus</button>
+  <button class="mode-btn" data-mode="short">Short Break</button>
+  <button class="mode-btn" data-mode="long">Long Break</button>
+</div>
+
+<div class="timer-wrap">
+  <svg class="ring-svg" viewBox="0 0 250 250">
+    <circle class="ring-bg" cx="125" cy="125" r="112"/>
+    <circle class="ring-progress" id="ring" cx="125" cy="125" r="112"/>
+  </svg>
+  <div class="timer-center">
+    <div class="timer-display" id="display">25:00</div>
+    <div class="timer-label" id="state-label">Ready</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn-icon" id="btn-reset" aria-label="Reset">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+      <path d="M3 3v5h5"/>
+    </svg>
+  </button>
+  <button class="btn-primary" id="btn-play" aria-label="Start">
+    <svg id="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+    <svg id="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+      <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
+    </svg>
+  </button>
+  <button class="btn-icon" id="btn-sound" aria-label="Toggle sound">
+    <svg id="icon-son" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    </svg>
+    <svg id="icon-soff" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+  </button>
+</div>
+
+<div class="session-dots" id="dots"></div>
+
+<div class="settings-row">
+  <label>Focus</label>
+  <input class="num-input" id="inp-focus" type="number" min="1" max="90" value="25">
+  <span class="sep">·</span>
+  <label>Short</label>
+  <input class="num-input" id="inp-short" type="number" min="1" max="30" value="5">
+  <span class="sep">·</span>
+  <label>Long</label>
+  <input class="num-input" id="inp-long" type="number" min="1" max="60" value="15">
+</div>
+
+<div class="log-section">
+  <div class="log-header">
+    <span class="log-title">Session Log</span>
+    <button class="log-clear" id="btn-clear">Clear</button>
+  </div>
+  <ul class="log-list" id="log-list">
+    <li class="log-empty" id="log-empty">No sessions yet — start focusing.</li>
+  </ul>
+</div>
+<p class="shortcut-hint"><kbd>Space</kbd> to start / pause</p>
+
+<script>
+const MODES={
+  focus:{state:'Focusing',color:'#4A9EFF'},
+  short:{state:'Short Break',color:'#4AFF9E'},
+  long:{state:'Long Break',color:'#9E4AFF'}
+};
+let mode='focus',running=false,remaining=25*60,total=25*60,ticker=null,soundOn=true,sessionCount=0;
+const MAX=4;
+const CIRC=2*Math.PI*112;
+const ring=document.getElementById('ring');
+const display=document.getElementById('display');
+const stateLabel=document.getElementById('state-label');
+const btnPlay=document.getElementById('btn-play');
+const iPlay=document.getElementById('icon-play');
+const iPause=document.getElementById('icon-pause');
+
+ring.style.strokeDasharray=CIRC;
+ring.style.strokeDashoffset=0;
+
+function getDur(){return{
+  focus:Math.max(1,parseInt(document.getElementById('inp-focus').value)||25)*60,
+  short:Math.max(1,parseInt(document.getElementById('inp-short').value)||5)*60,
+  long:Math.max(1,parseInt(document.getElementById('inp-long').value)||15)*60
+};}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+
+function updateRing(){
+  const r=remaining/total;
+  ring.style.strokeDashoffset=CIRC*(1-r);
+  if(running)ring.style.stroke=r>0.5?MODES[mode].color:r>0.2?'#FFB347':'#FF4A4A';
+  else ring.style.stroke=MODES[mode].color;
+  display.textContent=fmt(remaining);
+}
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+  pause();total=getDur()[mode];remaining=total;
+  stateLabel.textContent='Ready';ring.style.stroke=MODES[mode].color;updateRing();
+}
+
+function play(){
+  running=true;stateLabel.textContent=MODES[mode].state;
+  iPlay.style.display='none';iPause.style.display='block';
+  btnPlay.style.background=MODES[mode].color;
+  tick();ticker=setInterval(tick,1000);
+}
+
+function pause(){
+  running=false;clearInterval(ticker);
+  iPlay.style.display='block';iPause.style.display='none';
+  stateLabel.textContent=(remaining===0||remaining===total)?'Ready':'Paused';
+}
+
+function reset(){
+  pause();total=getDur()[mode];remaining=total;
+  stateLabel.textContent='Ready';ring.style.stroke=MODES[mode].color;updateRing();
+}
+
+function tick(){
+  if(remaining<=0){finish();return;}
+  remaining--;updateRing();
+  if(soundOn&&remaining>0&&remaining<=5)playBeep(220,.03);
+}
+
+function finish(){
+  pause();remaining=0;updateRing();stateLabel.textContent='Done ✓';
+  if(soundOn)playBell();
+  if(mode==='focus'){sessionCount++;addLog();renderDots();
+    setTimeout(()=>setMode(sessionCount%MAX===0?'long':'short'),1200);
+  } else {
+    setTimeout(()=>setMode('focus'),800);
+  }
+}
+
+function addLog(){
+  document.getElementById('log-empty')?.remove();
+  const li=document.createElement('li');li.className='log-item';
+  const dur=getDur().focus/60;
+  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  li.innerHTML=`<span class="log-item-label">Focus #${sessionCount} · ${dur}min</span><span class="log-item-time">${t}</span>`;
+  document.getElementById('log-list').prepend(li);
+}
+
+function renderDots(){
+  const d=document.getElementById('dots');d.innerHTML='';
+  const filled=sessionCount%MAX===0&&sessionCount>0?MAX:sessionCount%MAX;
+  for(let i=0;i<MAX;i++){
+    const dot=document.createElement('div');dot.className='dot';
+    if(i<filled)dot.classList.add('done');
+    d.appendChild(dot);
+  }
+}
+
+let audioCtx=null;
+function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playBeep(freq,gain){
+  try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();
+  o.connect(g);g.connect(c.destination);o.frequency.value=freq;
+  g.gain.setValueAtTime(gain,c.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.15);
+  o.start();o.stop(c.currentTime+.15);}catch{}
+}
+function playBell(){[523,659,784].forEach((f,i)=>setTimeout(()=>playBeep(f,.1),i*150));}
+
+document.getElementById('btn-play').addEventListener('click',()=>running?pause():play());
+document.getElementById('btn-reset').addEventListener('click',reset);
+document.getElementById('btn-sound').addEventListener('click',()=>{
+  soundOn=!soundOn;
+  document.getElementById('icon-son').style.display=soundOn?'block':'none';
+  document.getElementById('icon-soff').style.display=soundOn?'none':'block';
+});
+document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+['inp-focus','inp-short','inp-long'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{if(!running)reset();}));
+document.getElementById('btn-clear').addEventListener('click',()=>{
+  document.getElementById('log-list').innerHTML='';sessionCount=0;renderDots();
+  const e=document.createElement('li');e.className='log-empty';e.id='log-empty';
+  e.textContent='No sessions yet — start focusing.';
+  document.getElementById('log-list').appendChild(e);
+});
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'&&e.target===document.body){e.preventDefault();running?pause():play();}
+});
+
+renderDots();updateRing();
+</script>
+</body>
+</html>
 
