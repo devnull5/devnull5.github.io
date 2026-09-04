@@ -79,12 +79,31 @@
     <li>Delete clips at any time via the app or by deleting the files directly.</li>
     <li>Disable or remove email alerts at any time from the Alerts panel.</li>
     <li>Set an automatic retention period to delete old clips automatically.</li>
-    <li>Uninstall the app to remove it; your clips folder and its contents are left in place unless you delete them yourself.</li>
+    <li>Uninstall the app to remove it. A few things are deliberately left in place so you don't lose data, and you can remove them yourself:
+      <ul>
+        <li><strong>Clips</strong> — your clips folder and its contents stay where they are; delete the files or folder yourself if you no longer want them.</li>
+        <li><strong>Settings</strong> — the config file lives in <code>Documents\EasyEye\</code>; delete that folder to remove it.</li>
+        <li><strong>Gmail app password</strong> — if you enabled email alerts, the stored password remains in Windows Credential Manager as an entry named <code>EasyEye-StillstackLabs</code>. Remove it via Control Panel → Credential Manager → Windows Credentials, or by deleting the password in the app's Alerts panel before uninstalling.</li>
+        <li><strong>Launch at startup</strong> — if you turned this on from inside the app, the startup entry may remain as a value named <code>EasyEye</code> under <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code>. Turn the option off in the app before uninstalling, or remove the entry in Task Manager's Startup apps tab.</li>
+      </ul>
+    </li>
   </ul>
+
+  <h2>Children</h2>
+  <p>
+    EasyEye is not directed at children under 13. It collects no personal
+    information from anyone, children included.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    Any updates to this policy are posted on this page with a revised
+    "Last updated" date.
+  </p>
 
   <h2>Contact</h2>
   <p>
-    Questions about this policy: <a href="https://stillstacklabs.com/#contact">https://stillstacklabs.com/#contact</a>
+    Questions about this policy: <a href="https://stillstacklabs.com/#contact">stillstacklabs.com/#contact</a>
   </p>
 
   <div class="note">
