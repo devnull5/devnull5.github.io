@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyEye Privacy Policy — Stillstack Labs</title>
+<style>
+  :root {
+    --bg: #0d0d0f; --bg2: #161619; --bg3: #1f1f24;
+    --accent: #00e5ff; --fg: #e8e8f0; --fg-dim: #8a8a96;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6; margin: 0; padding: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { color: var(--accent); font-family: 'Courier New', monospace; font-size: 1.6rem; margin-bottom: 4px; }
+  .meta { color: var(--fg-dim); font-size: 0.85rem; margin-bottom: 32px; }
+  h2 {
+    color: var(--accent); font-family: 'Courier New', monospace;
+    font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
+    border-bottom: 1px solid var(--bg3); padding-bottom: 8px; margin-top: 40px;
+  }
+  p, li { color: var(--fg); font-size: 0.95rem; }
+  ul { padding-left: 1.2em; }
+  code { background: var(--bg3); padding: 1px 6px; border-radius: 3px; font-size: 0.85em; }
+  a { color: var(--accent); }
+  .note {
+    background: var(--bg2); border-left: 3px solid var(--accent);
+    padding: 12px 16px; margin-top: 40px; font-size: 0.85rem; color: var(--fg-dim);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>EasyEye Privacy Policy</h1>
+  <div class="meta">Stillstack Labs &nbsp;·&nbsp; Last updated: 2026-09-04</div>
+
+  <p>
+    EasyEye is a Windows application that turns a webcam into a motion-detection
+    recorder. This page explains what data EasyEye handles, where it goes, and
+    what stays entirely on your device.
+  </p>
+
+  <h2>What EasyEye stores locally</h2>
+  <ul>
+    <li><strong>Video clips and snapshots</strong> — saved only to the folder you choose on your own PC (by default, a folder under your Documents). EasyEye does not upload clips to Stillstack Labs or any third-party server.</li>
+    <li><strong>Settings</strong> — camera preference, sensitivity, retention, schedule, and similar preferences are stored in a local config file in your Documents folder.</li>
+    <li><strong>Gmail app password (optional)</strong> — if you enable email alerts, your Gmail app password is stored using the <strong>Windows Credential Manager</strong>, the same secure OS-level vault used by browsers and other Windows apps. It is never written to a plain text file and never transmitted to Stillstack Labs.</li>
+  </ul>
+
+  <h2>Where data leaves your device</h2>
+  <ul>
+    <li><strong>Email alerts (optional)</strong> — if enabled, EasyEye connects directly to Gmail's SMTP server (<code>smtp.gmail.com</code>) using your credentials to send you a motion snapshot by email. This connection is between your PC and Google; Stillstack Labs is not in the middle of it and does not receive a copy.</li>
+    <li><strong>Cloud storage (optional)</strong> — if you point your clips folder at a OneDrive (or similar) folder, syncing is handled entirely by that provider's own client software, under their own privacy policy. EasyEye has no integration with or visibility into that sync.</li>
+  </ul>
+
+  <h2>What EasyEye does not do</h2>
+  <ul>
+    <li>No analytics, telemetry, or usage tracking.</li>
+    <li>No advertising or ad identifiers.</li>
+    <li>No account or sign-in required.</li>
+    <li>No sale or sharing of any data — there is no data collected by Stillstack Labs to sell or share in the first place.</li>
+  </ul>
+
+  <h2>Camera and microphone access</h2>
+  <p>
+    EasyEye accesses your webcam only while running and only to display a
+    live preview and perform on-device motion detection. Video is processed
+    locally; no frames are sent anywhere unless you have enabled email
+    alerts (a single snapshot per motion event, sent to the address you
+    configured) or chosen to store clips in a cloud-synced folder you control.
+  </p>
+
+  <h2>Your choices</h2>
+  <ul>
+    <li>Delete clips at any time via the app or by deleting the files directly.</li>
+    <li>Disable or remove email alerts at any time from the Alerts panel.</li>
+    <li>Set an automatic retention period to delete old clips automatically.</li>
+    <li>Uninstall the app to remove it; your clips folder and its contents are left in place unless you delete them yourself.</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy: <a href="https://stillstacklabs.com">stillstacklabs.com</a>
+  </p>
+
+  <div class="note">
+    This policy is written in plain language to describe EasyEye's actual
+    behavior as shipped. It is provided by Stillstack Labs and is not a
+    substitute for legal advice — if you have specific compliance
+    requirements, have this reviewed by a lawyer before relying on it.
+  </div>
+</div>
+</body>
+</html>
