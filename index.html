@@ -220,6 +220,7 @@
       cursor: none;
       transition: transform 0.2s, box-shadow 0.2s;
       clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      display: inline-block;
     }
 
     .btn-primary:hover {
@@ -608,73 +609,70 @@
       <!-- head -->
       <circle cx="18" cy="5" r="4" stroke="#00e5ff" stroke-width="1.8" fill="none"/>
 
-```
-  <!-- spine -->
-  <path d="M18 9 C17 14 16 18 16 21"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- spine -->
+      <path d="M18 9 C17 14 16 18 16 21"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- left arm down to knee -->
-  <path d="M16 14 C12 17 9 20 7 23"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- left arm down to knee -->
+      <path d="M16 14 C12 17 9 20 7 23"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- right arm down to knee -->
-  <path d="M16 14 C20 17 23 20 25 23"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- right arm down to knee -->
+      <path d="M16 14 C20 17 23 20 25 23"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- left leg crossed -->
-  <path d="M16 21 C13 24 9 26 5 26"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- left leg crossed -->
+      <path d="M16 21 C13 24 9 26 5 26"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- right leg crossed -->
-  <path d="M16 21 C19 24 23 26 27 26"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- right leg crossed -->
+      <path d="M16 21 C19 24 23 26 27 26"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- left foot -->
-  <path d="M5 26 C6 28 8 29 10 28"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- left foot -->
+      <path d="M5 26 C6 28 8 29 10 28"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- right foot -->
-  <path d="M27 26 C26 28 24 29 22 28"
-        stroke="#00e5ff"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        fill="none"/>
+      <!-- right foot -->
+      <path d="M27 26 C26 28 24 29 22 28"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
 
-  <!-- base ellipse / mat -->
-  <ellipse cx="16"
-           cy="30"
-           rx="12"
-           ry="3"
-           stroke="#00e5ff"
-           stroke-width="1.4"
-           fill="none"
-           opacity="0.5"/>
-</svg>
+      <!-- base ellipse / mat -->
+      <ellipse cx="16"
+               cy="30"
+               rx="12"
+               ry="3"
+               stroke="#00e5ff"
+               stroke-width="1.4"
+               fill="none"
+               opacity="0.5"/>
+    </svg>
 
-<div>
-  <strong>StillStack</strong>
-  <em>Labs</em>
-</div>
-```
-
+    <div>
+      <strong>StillStack</strong>
+      <em>Labs</em>
+    </div>
   </a>
 
   <div class="nav-right">
@@ -711,7 +709,7 @@
     <div class="product-card">
       <div class="product-header">
         <div class="product-icon">◉</div>
-        <div class="product-badge">Coming Soon</div>
+        <div class="product-badge" style="border-color:var(--accent);color:var(--accent)">Available</div>
       </div>
       <div class="product-name">MotionCam</div>
       <p class="product-desc">
@@ -726,10 +724,8 @@
         <span class="feature-tag">Windows 10/11</span>
       </div>
       <div class="product-footer">
-        <div class="product-price">$9.99 <span>one-time</span></div>
-      </div>
-      <div class="coming-soon-overlay">
-        <div class="coming-soon-badge">Coming Soon</div>
+        <div class="product-price">$6.79 <span>one-time</span></div>
+        <a href="https://apps.microsoft.com/store/detail/9NPCZFDLNNWH?cid=DevShareMCLPCS" class="btn-primary">Get on Store</a>
       </div>
     </div>
   </section>
