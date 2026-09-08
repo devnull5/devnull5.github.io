@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Main site → Focus -->
+
+  <meta name="google-site-verification" content="5bskJUwzfNPCb9vWACFO76YPLwDOd2Sttc2FjT42jV4" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products · Stillstack Labs</title>
-  <meta name="description" content="All products by Stillstack Labs. Focused Windows utilities built to just work." />
+  <title>Stillstack Labs · Independent Software</title>
+  <meta name="description" content="Stillstack Labs builds focused, no-nonsense Windows software. Simple tools that just work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -35,6 +38,7 @@
       cursor: auto;
     }
 
+    /* ── custom cursor ── */
     .cursor {
       position: fixed;
       width: 8px; height: 8px;
@@ -43,7 +47,7 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s;
+      transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
     }
     .cursor-ring {
       position: fixed;
@@ -53,9 +57,10 @@
       pointer-events: none;
       z-index: 9998;
       transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s;
+      transition: transform 0.15s ease-out, width 0.2s, height 0.2s;
     }
 
+    /* ── noise overlay ── */
     body::before {
       content: '';
       position: fixed;
@@ -66,6 +71,7 @@
       opacity: 0.4;
     }
 
+    /* ── grid lines ── */
     body::after {
       content: '';
       position: fixed;
@@ -78,6 +84,7 @@
       z-index: 0;
     }
 
+    /* ── nav ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -104,7 +111,18 @@
       gap: 12px;
     }
 
-    .nav-logo strong { color: var(--fg); font-weight: 500; }
+    .nav-logo-mark {
+      width: 28px;
+      height: 22px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .nav-logo strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
     .nav-logo em {
       color: var(--dim);
       font-style: normal;
@@ -120,81 +138,176 @@
       letter-spacing: 0.1em;
     }
 
-    .nav-back {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--dim);
-      text-decoration: none;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .nav-back:hover { color: var(--accent); }
-
-    /* ── page header ── */
-    .page-header {
+    /* ── hero ── */
+    .hero {
       position: relative;
       z-index: 2;
-      padding: 140px 48px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.2s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
     }
 
-    .page-eyebrow {
+    .hero-eyebrow {
       font-size: 11px;
       letter-spacing: 0.2em;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
     }
 
-    .page-title {
+    .hero-title {
       font-family: var(--display);
-      font-size: clamp(40px, 6vw, 72px);
+      font-size: clamp(48px, 8vw, 96px);
       font-weight: 800;
-      letter-spacing: -0.03em;
       line-height: 0.95;
+      letter-spacing: -0.03em;
       color: var(--fg);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.4s;
     }
 
-    .page-sub {
-      font-size: 14px;
+    .hero-title span {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-title span::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .hero-sub {
+      font-size: 15px;
       color: var(--dim);
-      max-width: 480px;
+      max-width: 440px;
       line-height: 1.7;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.6s;
     }
 
-    /* ── product grid ── */
-    .product-grid {
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: none;
+      text-decoration: none;
+      cursor: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,229,255,0.3);
+    }
+
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      cursor: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost:hover { color: var(--fg); }
+
+    /* ── scroll indicator ── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 1.2s;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    .scroll-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    /* ── products section ── */
+    .products {
       position: relative;
       z-index: 2;
-      padding: 0 48px 120px;
+      padding: 120px 48px;
       max-width: 1100px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-      gap: 24px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
     .product-card {
       border: 1px solid var(--border);
       background: var(--bg2);
-      padding: 40px;
+      padding: 48px;
       position: relative;
       overflow: hidden;
       transition: border-color 0.3s, transform 0.3s;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards;
     }
-
-    .product-card:nth-child(1) { animation-delay: 0.3s; }
-    .product-card:nth-child(2) { animation-delay: 0.4s; }
-    .product-card:nth-child(3) { animation-delay: 0.5s; }
-    .product-card:nth-child(4) { animation-delay: 0.6s; }
 
     .product-card::before {
       content: '';
@@ -213,59 +326,57 @@
 
     .product-card:hover::before { opacity: 1; }
 
-    .card-header {
+    .product-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      gap: 24px;
     }
 
-    .card-icon {
-      width: 44px; height: 44px;
+    .product-icon {
+      width: 48px; height: 48px;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      background: var(--bg3);
+      font-size: 20px;
       flex-shrink: 0;
+      background: var(--bg3);
     }
 
-    .card-badge {
+    .product-badge {
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       padding: 4px 10px;
       border: 1px solid var(--accent2);
       color: var(--accent2);
+      align-self: flex-start;
     }
 
-    .card-badge.available {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .card-name {
+    .product-name {
       font-family: var(--display);
-      font-size: 26px;
+      font-size: 32px;
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--fg);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .card-desc {
+    .product-desc {
       font-size: 13px;
       color: var(--dim);
       line-height: 1.8;
-      margin-bottom: 24px;
+      max-width: 560px;
+      margin-bottom: 32px;
     }
 
-    .card-features {
+    .product-features {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 28px;
+      gap: 10px;
+      margin-bottom: 36px;
     }
 
     .feature-tag {
@@ -273,64 +384,91 @@
       letter-spacing: 0.08em;
       color: var(--dim);
       border: 1px solid var(--border);
-      padding: 3px 10px;
+      padding: 4px 12px;
       background: var(--bg3);
     }
 
-    .card-footer {
+    .product-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 24px;
+      padding-top: 32px;
       border-top: 1px solid var(--border);
     }
 
-    .card-price {
+    .product-price {
       font-family: var(--display);
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--accent);
     }
 
-    .card-price span {
+    .product-price span {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--dim);
       font-weight: 400;
       margin-left: 4px;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border: none;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-      display: inline-block;
+    .coming-soon-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,12,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,229,255,0.3);
+    .coming-soon-badge {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 12px 32px;
+      background: rgba(0,229,255,0.05);
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .btn-disabled {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    /* ── about strip ── */
+    .about {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-title {
+      font-family: var(--display);
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--fg);
+    }
+
+    .about-title em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .about-body {
+      font-size: 13px;
       color: var(--dim);
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      background: var(--bg3);
+      line-height: 1.9;
     }
+
+    .about-body p + p { margin-top: 16px; }
 
     /* ── footer ── */
     footer {
@@ -349,19 +487,112 @@
       letter-spacing: 0.08em;
     }
 
-    .footer-left strong { color: var(--accent); font-weight: 500; }
-    .footer-right { font-size: 11px; color: var(--dim); }
+    .footer-left strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
 
+    .footer-right {
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── contact section ── */
+    .contact {
+      position: relative;
+      z-index: 2;
+      padding: 120px 48px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      height: 140px;
+    }
+
+    .form-submit {
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+
+    .form-success {
+      display: none;
+      padding: 16px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      margin-top: 16px;
+    }
+
+    /* ── responsive contact ── */
+    @media (max-width: 768px) {
+      .contact { padding: 80px 24px; }
+    }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0); }
+      50%       { box-shadow: 0 0 20px 4px rgba(0,229,255,0.15); }
+    }
+
+    /* ── responsive ── */
     @media (max-width: 768px) {
       nav { padding: 0 24px; }
-      .page-header { padding: 120px 24px 60px; }
-      .product-grid { padding: 0 24px 80px; grid-template-columns: 1fr; }
+      .products, .about { padding: 80px 24px; }
+      .product-card { padding: 32px 24px; }
+      .about { grid-template-columns: 1fr; gap: 32px; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
+      .hero-cta { flex-direction: column; }
     }
   </style>
 </head>
@@ -370,47 +601,121 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="18" cy="5" r="4" stroke="#00e5ff" stroke-width="1.8" fill="none"/>
-        <path d="M18 9 C17 14 16 18 16 21" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M16 14 C12 17 9 20 7 23" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M16 14 C20 17 23 20 25 23" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M16 21 C13 24 9 26 5 26" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M16 21 C19 24 23 26 27 26" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M5 26 C6 28 8 29 10 28" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M27 26 C26 28 24 29 22 28" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <ellipse cx="16" cy="30" rx="12" ry="3" stroke="#00e5ff" stroke-width="1.4" fill="none" opacity="0.5"/>
-      </svg>
-      <div>
-        <strong>StillStack</strong>
-        <em>Labs</em>
-      </div>
+<!-- NAV -->
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- head -->
+      <circle cx="18" cy="5" r="4" stroke="#00e5ff" stroke-width="1.8" fill="none"/>
+
+      <!-- spine -->
+      <path d="M18 9 C17 14 16 18 16 21"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- left arm down to knee -->
+      <path d="M16 14 C12 17 9 20 7 23"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- right arm down to knee -->
+      <path d="M16 14 C20 17 23 20 25 23"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- left leg crossed -->
+      <path d="M16 21 C13 24 9 26 5 26"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- right leg crossed -->
+      <path d="M16 21 C19 24 23 26 27 26"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- left foot -->
+      <path d="M5 26 C6 28 8 29 10 28"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- right foot -->
+      <path d="M27 26 C26 28 24 29 22 28"
+            stroke="#00e5ff"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"/>
+
+      <!-- base ellipse / mat -->
+      <ellipse cx="16"
+               cy="30"
+               rx="12"
+               ry="3"
+               stroke="#00e5ff"
+               stroke-width="1.4"
+               fill="none"
+               opacity="0.5"/>
+    </svg>
+
+    <div>
+      <strong>StillStack</strong>
+      <em>Labs</em>
+    </div>
+  </a>
+
+  <div class="nav-right">
+    <a href="pomodoro.html"
+       style="color:inherit;text-decoration:none;">
+      FOCUS TIMER
     </a>
-    <a href="index.html" class="nav-back">← Back to home</a>
-  </nav>
-
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <p class="page-eyebrow">◈ Stillstack Labs</p>
-    <h1 class="page-title">All Products</h1>
-    <p class="page-sub">Simple, focused Windows utilities. No subscriptions. No bloat. One price, yours forever.</p>
   </div>
+</nav>
 
-  <!-- PRODUCT GRID -->
-  <div class="product-grid">
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">◈ Stillstack Labs</p>
+    <h1 class="hero-title">
+      Software that<br /><span>just works.</span>
+    </h1>
+    <p class="hero-sub">
+      Focused Windows utilities built for people who want simple, clean tools without the bloat.
+    </p>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary">View Products</a>
+      <a href="#contact" class="btn-ghost">Get in touch →</a>
+    </div>
+    <div class="scroll-indicator">
+      <span class="scroll-label">scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-    <!-- MotionCam -->
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="section-label">Products</div>
+
     <div class="product-card">
-      <div class="card-header">
-        <div class="card-icon">◉</div>
-        <div class="card-badge">Coming Soon</div>
+      <div class="product-header">
+        <div class="product-icon">◉</div>
+        <div class="product-badge" style="border-color:var(--accent);color:var(--accent)">Available</div>
       </div>
-      <div class="card-name">MotionCam</div>
-      <p class="card-desc">A lightweight motion detection recorder for Windows. Monitors your webcam and automatically saves clips when movement is detected.</p>
-      <div class="card-features">
+      <div class="product-name">MotionCam</div>
+      <p class="product-desc">
+        A lightweight motion detection recorder for Windows. Monitors your webcam and automatically saves clips when movement is detected. Clean interface, zero configuration required.
+      </p>
+      <div class="product-features">
         <span class="feature-tag">Motion Detection</span>
         <span class="feature-tag">Auto Recording</span>
         <span class="feature-tag">Continuous Mode</span>
@@ -418,76 +723,60 @@
         <span class="feature-tag">No Subscription</span>
         <span class="feature-tag">Windows 10/11</span>
       </div>
-      <div class="card-footer">
-        <div class="card-price">$9.99 <span>one-time</span></div>
-        <div class="btn-disabled">Coming Soon</div>
+      <div class="product-footer">
+        <div class="product-price">$6.79 <span>one-time</span></div>
+        <a href="https://apps.microsoft.com/store/detail/9NPCZFDLNNWH?cid=DevShareMCLPCS" class="btn-primary">Get on Store</a>
       </div>
     </div>
+  </section>
 
-    <!-- Resizr -->
-    <div class="product-card">
-      <div class="card-header">
-        <div class="card-icon">⊞</div>
-        <div class="card-badge">Coming Soon</div>
-      </div>
-      <div class="card-name">Resizr</div>
-      <p class="card-desc">A clean, no-nonsense image resizer for Windows. Batch resize, convert formats, and export in seconds. No cloud, no account required.</p>
-      <div class="card-features">
-        <span class="feature-tag">Batch Resize</span>
-        <span class="feature-tag">Format Conversion</span>
-        <span class="feature-tag">Drag & Drop</span>
-        <span class="feature-tag">Local Only</span>
-        <span class="feature-tag">Windows 10/11</span>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">$9.99 <span>one-time</span></div>
-        <div class="btn-disabled">Coming Soon</div>
-      </div>
-    </div>
-
-    <!-- ChatBox -->
-    <div class="product-card">
-      <div class="card-header">
-        <div class="card-icon">◫</div>
-        <div class="card-badge">Coming Soon</div>
-      </div>
-      <div class="card-name">ChatBox</div>
-      <p class="card-desc">A clean desktop chat interface for local AI models via Ollama. Run powerful language models entirely on your own machine — no API keys, no data leaving your PC.</p>
-      <div class="card-features">
-        <span class="feature-tag">Ollama Integration</span>
-        <span class="feature-tag">100% Local</span>
-        <span class="feature-tag">No API Key</span>
-        <span class="feature-tag">Multi-Model</span>
-        <span class="feature-tag">Windows 10/11</span>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">$9.99 <span>one-time</span></div>
-        <div class="btn-disabled">Coming Soon</div>
-      </div>
-    </div>
-
-    <!-- Trade Dashboard -->
-    <div class="product-card">
-      <div class="card-header">
-        <div class="card-icon">◈</div>
-        <div class="card-badge">Coming Soon</div>
-      </div>
-      <div class="card-name">Trade Dashboard</div>
-      <p class="card-desc">Import and analyze your trading history from your brokerage. Visualize performance, track gains and losses, and review your portfolio — all locally on your machine.</p>
-      <div class="card-features">
-        <span class="feature-tag">Trade Import</span>
-        <span class="feature-tag">Performance Charts</span>
-        <span class="feature-tag">P&L Tracking</span>
-        <span class="feature-tag">Local Only</span>
-        <span class="feature-tag">Windows 10/11</span>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">$9.99 <span>one-time</span></div>
-        <div class="btn-disabled">Coming Soon</div>
-      </div>
-    </div>
-
+  <!-- VIEW ALL PRODUCTS LINK -->
+  <div style="position:relative;z-index:2;text-align:center;margin-top:-64px;padding-bottom:80px;">
+    <a href="products.html" class="btn-primary">View All Products →</a>
   </div>
+  <section class="about">
+    <div class="about-title">
+      Built by one person.<br />
+      <em>Designed for everyone.</em>
+    </div>
+    <div class="about-body">
+      <p>Stillstack Labs is an independent software company focused on building focused, no-nonsense Windows utilities. No venture capital. No subscriptions. No tracking.</p>
+      <p>Every product is built to solve one problem well — then gets out of your way.</p>
+      <p>Based in Virginia Beach, VA.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-label">Get in touch</div>
+    <p style="font-size:13px;color:var(--dim);line-height:1.8;margin-top:-32px">
+      Questions, feedback, or just want to say hi — fill out the form and I'll get back to you.
+    </p>
+
+    <form class="contact-form" action="https://formspree.io/f/xbdzznar" method="POST" id="contactForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary" style="cursor:pointer;font-family:var(--mono)">
+          SEND MESSAGE
+        </button>
+      </div>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      ✓ Message sent — I'll get back to you soon.
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -502,6 +791,26 @@
     const cursorRing = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
 
+    // contact form — AJAX submit so page doesn't redirect
+    const form    = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    if (form) {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const res  = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display    = 'none';
+          success.style.display = 'block';
+        }
+      });
+    }
+
+    // custom cursor — only on real pointer devices
     if (window.matchMedia('(pointer: fine)').matches) {
       document.body.style.cursor = 'none';
 
