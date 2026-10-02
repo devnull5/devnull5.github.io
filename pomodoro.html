@@ -6,7 +6,7 @@
   <title>Focus Timer · Free Pomodoro timer · Stillstack Labs</title>
   <meta name="description" content="A free, distraction-free Pomodoro focus timer that runs in your browser. Focus, short break and long break sessions with a session log. No sign-up." />
   <link rel="canonical" href="https://stillstacklabs.com/pomodoro.html" />
-  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="theme-color" content="#f3ece0" />
   <meta property="og:title" content="Focus Timer · Stillstack Labs" />
   <meta property="og:description" content="A free, distraction-free Pomodoro timer. Nothing to install." />
   <meta property="og:url" content="https://stillstacklabs.com/pomodoro.html" />
@@ -18,8 +18,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/site.css?v=6" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css?v=7" />
   <script>document.documentElement.classList.add('js')</script>
   <style>
     .timer-page {
@@ -31,21 +31,21 @@
     }
     .timer-page .eyebrow { margin-bottom: 28px; }
 
-    .modes { display: inline-flex; gap: 4px; border: 1px solid var(--border-2); background: var(--bg2); padding: 4px; margin-bottom: 44px; }
+    .modes { display: inline-flex; gap: 4px; border: 1px solid var(--border-2); background: var(--bg2); border-radius: 999px; padding: 4px; margin-bottom: 44px; box-shadow: var(--shadow); }
     .mode-btn {
       background: none; border: none; cursor: pointer;
-      font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); padding: 9px 16px; transition: background .15s, color .15s;
+      font: 600 14px var(--sans);
+      color: var(--muted); padding: 9px 18px; border-radius: 999px; transition: background .15s, color .15s;
     }
     .mode-btn:hover { color: var(--fg); }
-    .mode-btn[aria-pressed="true"] { background: var(--bg3); color: var(--fg); box-shadow: inset 0 -2px 0 var(--mode, var(--accent)); }
+    .mode-btn[aria-pressed="true"] { background: var(--mode, var(--accent)); color: var(--accent-ink); }
 
-    .timer-wrap { position: relative; width: 280px; height: 280px; margin-bottom: 36px; }
+    .timer-wrap { position: relative; width: 280px; height: 280px; margin-bottom: 36px; border-radius: 50%; background: radial-gradient(circle, var(--bg2) 62%, transparent 63%); }
     .ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .ring-bg { fill: none; stroke: var(--bg3); stroke-width: 5; }
-    .ring-progress { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .95s linear, stroke .5s ease; filter: drop-shadow(0 0 8px rgba(0,229,255,.25)); }
+    .ring-bg { fill: none; stroke: var(--border); stroke-width: 6; }
+    .ring-progress { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .95s linear, stroke .5s ease; filter: drop-shadow(0 2px 6px rgba(74,52,30,.18)); }
     .timer-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-    .timer-display { font: 300 68px var(--mono); letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .timer-display { font: 500 72px var(--display); letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
     .timer-label { font: 500 12px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 
     .controls { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
@@ -59,7 +59,7 @@
       width: 68px; height: 68px; border-radius: 50%; border: none;
       background: var(--mode, var(--accent)); color: var(--accent-ink); cursor: pointer;
       display: grid; place-items: center; transition: transform .1s, background .3s;
-      box-shadow: 0 0 28px rgba(0,229,255,.2);
+      box-shadow: 0 10px 24px -10px rgba(49,73,45,.7);
     }
     .btn-play:hover { transform: scale(1.06); }
     .btn-play:active { transform: scale(.97); }
@@ -71,7 +71,7 @@
     .settings-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
     .settings-row label { font: 400 13px var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px; }
     .num-input {
-      width: 56px; background: var(--bg2); border: 1px solid var(--border-2); color: var(--fg);
+      width: 56px; background: var(--bg2); border: 1px solid var(--border-2); border-radius: 8px; color: var(--fg);
       font: 400 14px var(--mono); text-align: center; padding: 7px 4px; transition: border-color .15s;
     }
     .num-input:focus { outline: none; border-color: var(--accent); }
@@ -81,17 +81,17 @@
     .log-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .log-title { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
     .log-clear { background: none; border: none; font: 400 12px var(--mono); color: var(--dim); cursor: pointer; padding: 0; }
-    .log-clear:hover { color: var(--soon); }
+    .log-clear:hover { color: var(--clay); }
     .log-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .log-item {
       display: flex; justify-content: space-between; align-items: center;
-      background: var(--bg2); border: 1px solid var(--border);
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
       padding: 10px 14px; font-size: 14px; animation: slide-in .18s ease;
     }
     .log-item-time { color: var(--dim); font: 400 12px var(--mono); }
     .log-empty { font-size: 14px; color: var(--dim); text-align: center; padding: 20px 0; }
     .shortcut-hint { margin-top: 20px; font-size: 13px; color: var(--dim); }
-    kbd { background: var(--bg2); border: 1px solid var(--border-2); padding: 1px 7px; font: 400 11px var(--mono); }
+    kbd { background: var(--bg2); border: 1px solid var(--border-2); border-radius: 5px; padding: 1px 7px; font: 400 11px var(--mono); }
 
     .timer-promo { margin-top: 72px; max-width: 520px; color: var(--muted); font-size: 15px; }
     .timer-promo a { color: var(--accent); }
@@ -106,7 +106,7 @@
   <header class="site-nav">
     <div class="wrap">
       <a href="/" class="brand" aria-label="Stillstack Labs home">
-        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><g stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="4"/><path d="M18 9C17 14 16 18 16 21"/><path d="M16 14C12 17 9 20 7 23"/><path d="M16 14C20 17 23 20 25 23"/><path d="M16 21C13 24 9 26 5 26"/><path d="M16 21C19 24 23 26 27 26"/><path d="M5 26C6 28 8 29 10 28"/><path d="M27 26C26 28 24 29 22 28"/><ellipse cx="16" cy="30" rx="12" ry="3" stroke-width="1.4" opacity=".5"/></g></svg>
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="4"/><path d="M18 9C17 14 16 18 16 21"/><path d="M16 14C12 17 9 20 7 23"/><path d="M16 14C20 17 23 20 25 23"/><path d="M16 21C13 24 9 26 5 26"/><path d="M16 21C19 24 23 26 27 26"/><path d="M5 26C6 28 8 29 10 28"/><path d="M27 26C26 28 24 29 22 28"/><ellipse cx="16" cy="30" rx="12" ry="3" stroke-width="1.4" opacity=".5"/></g></svg>
         <span class="brand-name">StillStack<small>LABS</small></span>
       </a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
@@ -197,12 +197,12 @@
     </div>
   </footer>
 
-  <script src="/assets/js/site.js?v=6" defer></script>
+  <script src="/assets/js/site.js?v=7" defer></script>
   <script>
   const MODES = {
-    focus: { state: 'Focusing',    color: '#00e5ff', label: 'Focus' },
-    short: { state: 'Short break', color: '#4dffa6', label: 'Short break' },
-    long:  { state: 'Long break',  color: '#b18cff', label: 'Long break' }
+    focus: { state: 'Focusing',    color: '#3f5e3a', label: 'Focus' },
+    short: { state: 'Short break', color: '#85651a', label: 'Short break' },
+    long:  { state: 'Long break',  color: '#a3492a', label: 'Long break' }
   };
   const MAX = 4;
   const CIRC = 2 * Math.PI * 112;
@@ -245,7 +245,7 @@
   function updateRing() {
     const r = remaining / total;
     ring.style.strokeDashoffset = CIRC * (1 - r);
-    ring.style.stroke = running ? (r > 0.5 ? MODES[mode].color : r > 0.2 ? '#ffb347' : '#ff6b85') : MODES[mode].color;
+    ring.style.stroke = running ? (r > 0.5 ? MODES[mode].color : r > 0.2 ? '#b07a1e' : '#a3492a') : MODES[mode].color;
     display.textContent = fmt(remaining);
     document.title = running ? `${fmt(remaining)} · ${MODES[mode].label}` : BASE_TITLE;
   }
