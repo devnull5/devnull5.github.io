@@ -484,6 +484,17 @@ a { color: inherit; }
   50%      { transform: translate(-38%, -50%); }
 }
 
+/* ── screenshot preview ─────────────────────────────────────── */
+
+.peek { margin-top: 96px; }
+.peek-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
+.peek-head > div { max-width: 640px; }
+.shot { border: 1px solid var(--border-2); background: var(--bg2); padding: 10px; }
+.shot a { display: block; }
+.shot img { width: 100%; height: auto; transition: opacity 0.2s; }
+.shot a:hover img { opacity: 0.9; }
+.shot figcaption { font: 400 12px var(--mono); letter-spacing: 0.08em; color: var(--dim); padding: 12px 4px 2px; }
+
 /* ── principles ─────────────────────────────────────────────── */
 
 .principle { padding: 32px; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Products · Stillstack Labs</title>
-  <meta name="description" content="All Stillstack Labs apps: EasyEye motion-detection recorder, plus Resizr, ChatBox and Trade Dashboard coming soon. Simple Windows utilities, one-time price." />
+  <meta name="description" content="All Stillstack Labs apps: EasyEye motion-detection recorder, plus Resizr, ChatBox and VoodooDash coming soon. Simple Windows utilities, one-time price." />
   <link rel="canonical" href="https://stillstacklabs.com/products.html" />
   <meta name="theme-color" content="#0a0a0c" />
 
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/site.css?v=5" />
+  <link rel="stylesheet" href="/assets/css/site.css?v=6" />
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -116,23 +116,45 @@
             </div>
           </article>
 
-          <!-- Trade Dashboard -->
+          <!-- VoodooDash -->
           <article class="card product-card fade-up d3">
             <div class="top">
               <div class="app-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 16l4-5 4 3 6-8"/><path d="M15 6h4v4"/></svg></div>
               <span class="badge">Coming soon</span>
             </div>
-            <h3>Trade Dashboard</h3>
-            <p>Import and analyze your trading history from your brokerage. Visualize performance, track gains and losses, and review your portfolio — all locally on your machine.</p>
+            <h3>VoodooDash</h3>
+            <p>A trading journal for your desktop. Import your brokerage history from CSV and see P&amp;L, win rate, drawdown and your biggest leaks — plus a P&amp;L calendar with daily notes. All locally on your machine.</p>
             <ul class="tags">
-              <li>Trade import</li><li>Performance charts</li><li>P&amp;L tracking</li><li>Local only</li><li>Windows 10/11</li>
+              <li>CSV import</li><li>P&amp;L calendar</li><li>Daily journal</li><li>Insights</li><li>Local only</li><li>Windows 10/11</li>
             </ul>
             <div class="foot">
               <div class="price">$6.79<small>one-time</small></div>
-              <a href="#notify" class="btn btn-outline btn-sm">Notify me</a>
+              <a href="#voodoodash" class="btn btn-outline btn-sm">Sneak peek</a>
             </div>
           </article>
 
+        </div>
+
+        <!-- VoodooDash preview -->
+        <div class="peek reveal" id="voodoodash">
+          <div class="peek-head">
+            <div>
+              <div class="section-label">Sneak peek · VoodooDash</div>
+              <h2 class="h2">Know exactly <em>where your edge is.</em></h2>
+              <p class="muted">Overview stats, cumulative P&amp;L with drawdown, P&amp;L by symbol, and a calendar journal for every trading day.</p>
+            </div>
+            <a href="#notify" class="btn btn-primary">Notify me at launch</a>
+          </div>
+          <div class="grid grid-2">
+            <figure class="shot">
+              <a href="/assets/img/voodoodash/overview.webp"><img src="/assets/img/voodoodash/overview.webp" width="1458" height="931" loading="lazy" alt="VoodooDash overview: net P&amp;L, win rate, profit factor, expectancy, max drawdown, cumulative P&amp;L chart and P&amp;L by symbol" /></a>
+              <figcaption>Overview — stats, equity curve &amp; drawdown</figcaption>
+            </figure>
+            <figure class="shot">
+              <a href="/assets/img/voodoodash/calendar.webp"><img src="/assets/img/voodoodash/calendar.webp" width="1435" height="927" loading="lazy" alt="VoodooDash calendar: daily P&amp;L for each trading day, weekly totals, daily journal and monthly summary" /></a>
+              <figcaption>Calendar — daily P&amp;L, weekly totals &amp; journal</figcaption>
+            </figure>
+          </div>
         </div>
 
         <!-- Free tool -->
@@ -166,7 +188,7 @@
               <div class="checks">
                 <label class="check"><input type="checkbox" name="apps[]" value="Resizr" /> Resizr</label>
                 <label class="check"><input type="checkbox" name="apps[]" value="ChatBox" /> ChatBox</label>
-                <label class="check"><input type="checkbox" name="apps[]" value="Trade Dashboard" /> Trade Dashboard</label>
+                <label class="check"><input type="checkbox" name="apps[]" value="VoodooDash" /> VoodooDash</label>
               </div>
             </fieldset>
             <div class="field">
@@ -224,6 +246,6 @@
     </div>
   </footer>
 
-  <script src="/assets/js/site.js?v=5" defer></script>
+  <script src="/assets/js/site.js?v=6" defer></script>
 </body>
 </html>
