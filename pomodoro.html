@@ -1,298 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus • Stillstack Labs</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0A0A0F;--surface:#1A1A24;--border:#2A2A38;
-  --text:#E8E8E8;--muted:#6E6E88;--accent:#4A9EFF;--radius:10px;
-}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 72px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Timer · Free Pomodoro timer · Stillstack Labs</title>
+  <meta name="description" content="A free, distraction-free Pomodoro focus timer that runs in your browser. Focus, short break and long break sessions with a session log. No sign-up." />
+  <link rel="canonical" href="https://stillstacklabs.com/pomodoro.html" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta property="og:title" content="Focus Timer · Stillstack Labs" />
+  <meta property="og:description" content="A free, distraction-free Pomodoro timer. Nothing to install." />
+  <meta property="og:url" content="https://stillstacklabs.com/pomodoro.html" />
+  <meta property="og:image" content="https://stillstacklabs.com/assets/img/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-header{display:flex;align-items:center;gap:10px;margin-bottom:52px;
-  align-self:flex-start;max-width:460px;width:100%;margin-left:auto;margin-right:auto}
-.logo-mark{width:26px;height:26px;background:var(--accent);border-radius:6px;display:grid;place-items:center;flex-shrink:0}
-.logo-text{font-size:12px;font-weight:600;letter-spacing:.09em;color:var(--muted);text-transform:uppercase}
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
 
-.modes{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:4px;margin-bottom:44px}
-.mode-btn{background:none;border:none;color:var(--muted);font-family:'Inter',sans-serif;
-  font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
-  padding:6px 14px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
-.mode-btn.active{background:var(--border);color:var(--text)}
-.mode-btn:hover:not(.active){color:var(--text)}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css?v=5" />
+  <script>document.documentElement.classList.add('js')</script>
+  <style>
+    .timer-page {
+      padding: calc(var(--nav-h) + 56px) 0 96px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .timer-page .eyebrow { margin-bottom: 28px; }
 
-.timer-wrap{position:relative;width:250px;height:250px;margin-bottom:36px}
-.ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring-bg{fill:none;stroke:var(--surface);stroke-width:5}
-.ring-progress{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;
-  transition:stroke-dashoffset .95s linear,stroke .5s ease}
-.timer-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.timer-display{font-family:'JetBrains Mono',monospace;font-size:64px;font-weight:300;
-  letter-spacing:-.02em;line-height:1;color:var(--text)}
-.timer-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .modes { display: inline-flex; gap: 4px; border: 1px solid var(--border-2); background: var(--bg2); padding: 4px; margin-bottom: 44px; }
+    .mode-btn {
+      background: none; border: none; cursor: pointer;
+      font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); padding: 9px 16px; transition: background .15s, color .15s;
+    }
+    .mode-btn:hover { color: var(--fg); }
+    .mode-btn[aria-pressed="true"] { background: var(--bg3); color: var(--fg); box-shadow: inset 0 -2px 0 var(--mode, var(--accent)); }
 
-.controls{display:flex;align-items:center;gap:14px;margin-bottom:32px}
-.btn-icon{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);
-  background:var(--surface);color:var(--muted);cursor:pointer;display:grid;place-items:center;
-  transition:border-color .15s,color .15s}
-.btn-icon:hover{border-color:var(--accent);color:var(--text)}
-.btn-primary{width:62px;height:62px;border-radius:50%;border:none;background:var(--accent);
-  color:#fff;cursor:pointer;display:grid;place-items:center;
-  transition:transform .1s,background .3s;box-shadow:0 0 24px rgba(74,158,255,.18)}
-.btn-primary:hover{transform:scale(1.06)}
-.btn-primary:active{transform:scale(.97)}
+    .timer-wrap { position: relative; width: 280px; height: 280px; margin-bottom: 36px; }
+    .ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--bg3); stroke-width: 5; }
+    .ring-progress { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .95s linear, stroke .5s ease; filter: drop-shadow(0 0 8px rgba(0,229,255,.25)); }
+    .timer-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .timer-display { font: 300 68px var(--mono); letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .timer-label { font: 500 12px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 
-.session-dots{display:flex;gap:8px;margin-bottom:36px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .3s}
-.dot.done{background:var(--accent)}
+    .controls { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .btn-icon {
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid var(--border-2); background: var(--bg2); color: var(--muted);
+      cursor: pointer; display: grid; place-items: center; transition: border-color .15s, color .15s;
+    }
+    .btn-icon:hover { border-color: var(--accent); color: var(--fg); }
+    .btn-play {
+      width: 68px; height: 68px; border-radius: 50%; border: none;
+      background: var(--mode, var(--accent)); color: var(--accent-ink); cursor: pointer;
+      display: grid; place-items: center; transition: transform .1s, background .3s;
+      box-shadow: 0 0 28px rgba(0,229,255,.2);
+    }
+    .btn-play:hover { transform: scale(1.06); }
+    .btn-play:active { transform: scale(.97); }
 
-.settings-row{display:flex;gap:10px;align-items:center;margin-bottom:44px}
-.settings-row label{font-size:12px;color:var(--muted);letter-spacing:.04em}
-.num-input{width:50px;background:var(--surface);border:1px solid var(--border);border-radius:6px;
-  color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;
-  padding:5px 4px;outline:none;transition:border-color .15s}
-.num-input:focus{border-color:var(--accent)}
-.sep{color:var(--border);font-size:16px}
+    .session-dots { display: flex; gap: 10px; margin-bottom: 40px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-2); transition: background .3s; }
+    .dot.done { background: var(--accent); }
 
-.log-section{width:100%;max-width:360px}
-.log-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.log-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.log-clear{background:none;border:none;font-size:11px;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;padding:0}
-.log-clear:hover{color:#FF4A4A}
-.log-list{list-style:none;display:flex;flex-direction:column;gap:6px}
-.log-item{display:flex;justify-content:space-between;align-items:center;
-  background:var(--surface);border:1px solid var(--border);border-radius:7px;
-  padding:8px 12px;font-size:12px;animation:slide-in .18s ease}
-.log-item-label{color:var(--text)}
-.log-item-time{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px}
-.log-empty{font-size:12px;color:var(--muted);text-align:center;padding:20px 0}
-.shortcut-hint{margin-top:18px;font-size:11px;color:var(--muted);letter-spacing:.05em;text-align:center}
-kbd{background:var(--surface);border:1px solid var(--border);border-radius:4px;
-  padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:10px}
+    .settings-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+    .settings-row label { font: 400 13px var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .num-input {
+      width: 56px; background: var(--bg2); border: 1px solid var(--border-2); color: var(--fg);
+      font: 400 14px var(--mono); text-align: center; padding: 7px 4px; transition: border-color .15s;
+    }
+    .num-input:focus { outline: none; border-color: var(--accent); }
+    .sep { color: var(--border-2); }
 
-@keyframes slide-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.ring-progress{transition:none}.log-item{animation:none}}
-</style>
+    .log-section { width: 100%; max-width: 400px; text-align: left; }
+    .log-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .log-title { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .log-clear { background: none; border: none; font: 400 12px var(--mono); color: var(--dim); cursor: pointer; padding: 0; }
+    .log-clear:hover { color: var(--soon); }
+    .log-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .log-item {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 10px 14px; font-size: 14px; animation: slide-in .18s ease;
+    }
+    .log-item-time { color: var(--dim); font: 400 12px var(--mono); }
+    .log-empty { font-size: 14px; color: var(--dim); text-align: center; padding: 20px 0; }
+    .shortcut-hint { margin-top: 20px; font-size: 13px; color: var(--dim); }
+    kbd { background: var(--bg2); border: 1px solid var(--border-2); padding: 1px 7px; font: 400 11px var(--mono); }
+
+    .timer-promo { margin-top: 72px; max-width: 520px; color: var(--muted); font-size: 15px; }
+    .timer-promo a { color: var(--accent); }
+
+    @keyframes slide-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 400px) { .timer-wrap { width: 240px; height: 240px; } .timer-display { font-size: 56px; } .mode-btn { padding: 9px 10px; } }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header>
-  <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;">
-    <div class="logo-mark">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-        <rect x="2" y="2" width="5" height="5" rx="1" fill="white" opacity=".9"/>
-        <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity=".6"/>
-        <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity=".6"/>
-        <rect x="9" y="9" width="5" height="5" rx="1" fill="white" opacity=".3"/>
-      </svg>
+  <header class="site-nav">
+    <div class="wrap">
+      <a href="/" class="brand" aria-label="Stillstack Labs home">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><g stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="4"/><path d="M18 9C17 14 16 18 16 21"/><path d="M16 14C12 17 9 20 7 23"/><path d="M16 14C20 17 23 20 25 23"/><path d="M16 21C13 24 9 26 5 26"/><path d="M16 21C19 24 23 26 27 26"/><path d="M5 26C6 28 8 29 10 28"/><path d="M27 26C26 28 24 29 22 28"/><ellipse cx="16" cy="30" rx="12" ry="3" stroke-width="1.4" opacity=".5"/></g></svg>
+        <span class="brand-name">StillStack<small>LABS</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <nav aria-label="Main">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/products.html">Products</a></li>
+          <li><a href="/easyeye.html">EasyEye</a></li>
+          <li><a href="/pomodoro.html" aria-current="page">Focus Timer</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://apps.microsoft.com/detail/9NPCZFDLNNWH?cid=stillstacklabs-nav">Get EasyEye</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-```
-<span class="logo-text">← Stillstack Labs · Focus</span>
-```
+  <main id="main">
+    <section class="timer-page">
+      <div class="wrap" style="display:flex;flex-direction:column;align-items:center">
+        <h1 class="eyebrow">◈ Focus Timer</h1>
 
-  </a>
-</header>
+        <div class="modes" role="group" aria-label="Timer mode">
+          <button class="mode-btn" data-mode="focus" aria-pressed="true">Focus</button>
+          <button class="mode-btn" data-mode="short" aria-pressed="false">Short break</button>
+          <button class="mode-btn" data-mode="long" aria-pressed="false">Long break</button>
+        </div>
 
+        <div class="timer-wrap">
+          <svg class="ring-svg" viewBox="0 0 250 250" aria-hidden="true">
+            <circle class="ring-bg" cx="125" cy="125" r="112"/>
+            <circle class="ring-progress" id="ring" cx="125" cy="125" r="112"/>
+          </svg>
+          <div class="timer-center">
+            <div class="timer-display" id="display" role="timer" aria-live="off">25:00</div>
+            <div class="timer-label" id="state-label">Ready</div>
+          </div>
+        </div>
 
-<div class="modes">
-  <button class="mode-btn active" data-mode="focus">Focus</button>
-  <button class="mode-btn" data-mode="short">Short Break</button>
-  <button class="mode-btn" data-mode="long">Long Break</button>
-</div>
+        <div class="controls">
+          <button class="btn-icon" id="btn-reset" aria-label="Reset timer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+          <button class="btn-play" id="btn-play" aria-label="Start">
+            <svg id="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+            <svg id="icon-pause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+          <button class="btn-icon" id="btn-sound" aria-label="Sound on" aria-pressed="true">
+            <svg id="icon-son" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <svg id="icon-soff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          </button>
+        </div>
 
-<div class="timer-wrap">
-  <svg class="ring-svg" viewBox="0 0 250 250">
-    <circle class="ring-bg" cx="125" cy="125" r="112"/>
-    <circle class="ring-progress" id="ring" cx="125" cy="125" r="112"/>
-  </svg>
-  <div class="timer-center">
-    <div class="timer-display" id="display">25:00</div>
-    <div class="timer-label" id="state-label">Ready</div>
-  </div>
-</div>
+        <div class="session-dots" id="dots" aria-label="Sessions until long break"></div>
 
-<div class="controls">
-  <button class="btn-icon" id="btn-reset" aria-label="Reset">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-      <path d="M3 3v5h5"/>
-    </svg>
-  </button>
-  <button class="btn-primary" id="btn-play" aria-label="Start">
-    <svg id="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-    <svg id="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-      <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
-    </svg>
-  </button>
-  <button class="btn-icon" id="btn-sound" aria-label="Toggle sound">
-    <svg id="icon-son" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-    </svg>
-    <svg id="icon-soff" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-    </svg>
-  </button>
-</div>
+        <div class="settings-row">
+          <label>Focus <input class="num-input" id="inp-focus" type="number" min="1" max="90" value="25" aria-label="Focus minutes"></label>
+          <span class="sep">·</span>
+          <label>Short <input class="num-input" id="inp-short" type="number" min="1" max="30" value="5" aria-label="Short break minutes"></label>
+          <span class="sep">·</span>
+          <label>Long <input class="num-input" id="inp-long" type="number" min="1" max="60" value="15" aria-label="Long break minutes"></label>
+        </div>
 
-<div class="session-dots" id="dots"></div>
+        <div class="log-section">
+          <div class="log-header">
+            <span class="log-title">Session log</span>
+            <button class="log-clear" id="btn-clear">Clear</button>
+          </div>
+          <ul class="log-list" id="log-list">
+            <li class="log-empty" id="log-empty">No sessions yet — start focusing.</li>
+          </ul>
+        </div>
+        <p class="shortcut-hint"><kbd>Space</kbd> to start / pause</p>
 
-<div class="settings-row">
-  <label>Focus</label>
-  <input class="num-input" id="inp-focus" type="number" min="1" max="90" value="25">
-  <span class="sep">·</span>
-  <label>Short</label>
-  <input class="num-input" id="inp-short" type="number" min="1" max="30" value="5">
-  <span class="sep">·</span>
-  <label>Long</label>
-  <input class="num-input" id="inp-long" type="number" min="1" max="60" value="15">
-</div>
+        <p class="timer-promo">Free to use, no sign-up, nothing tracked. Made by <a href="/">Stillstack Labs</a> — we also make simple, pay-once Windows apps like <a href="/easyeye.html">EasyEye</a>.</p>
+      </div>
+    </section>
+  </main>
 
-<div class="log-section">
-  <div class="log-header">
-    <span class="log-title">Session Log</span>
-    <button class="log-clear" id="btn-clear">Clear</button>
-  </div>
-  <ul class="log-list" id="log-list">
-    <li class="log-empty" id="log-empty">No sessions yet — start focusing.</li>
-  </ul>
-</div>
-<p class="shortcut-hint"><kbd>Space</kbd> to start / pause</p>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-bottom" style="border-top:0;padding-top:0">
+        <span><strong>STILLSTACK LABS</strong> — © <span data-year>2026</span></span>
+        <span><a href="/products.html" style="color:inherit">Products</a> &nbsp;·&nbsp; <a href="/#contact" style="color:inherit">Contact</a> &nbsp;·&nbsp; <a href="/privacy.html" style="color:inherit">Privacy</a></span>
+      </div>
+    </div>
+  </footer>
 
-<script>
-const MODES={
-  focus:{state:'Focusing',color:'#4A9EFF'},
-  short:{state:'Short Break',color:'#4AFF9E'},
-  long:{state:'Long Break',color:'#9E4AFF'}
-};
-let mode='focus',running=false,remaining=25*60,total=25*60,ticker=null,soundOn=true,sessionCount=0;
-const MAX=4;
-const CIRC=2*Math.PI*112;
-const ring=document.getElementById('ring');
-const display=document.getElementById('display');
-const stateLabel=document.getElementById('state-label');
-const btnPlay=document.getElementById('btn-play');
-const iPlay=document.getElementById('icon-play');
-const iPause=document.getElementById('icon-pause');
+  <script src="/assets/js/site.js?v=5" defer></script>
+  <script>
+  const MODES = {
+    focus: { state: 'Focusing',    color: '#00e5ff', label: 'Focus' },
+    short: { state: 'Short break', color: '#4dffa6', label: 'Short break' },
+    long:  { state: 'Long break',  color: '#b18cff', label: 'Long break' }
+  };
+  const MAX = 4;
+  const CIRC = 2 * Math.PI * 112;
+  const BASE_TITLE = document.title;
+  const $ = id => document.getElementById(id);
 
-ring.style.strokeDasharray=CIRC;
-ring.style.strokeDashoffset=0;
+  const ring = $('ring'), display = $('display'), stateLabel = $('state-label');
+  const btnPlay = $('btn-play'), iPlay = $('icon-play'), iPause = $('icon-pause');
+  const inputs = { focus: $('inp-focus'), short: $('inp-short'), long: $('inp-long') };
 
-function getDur(){return{
-  focus:Math.max(1,parseInt(document.getElementById('inp-focus').value)||25)*60,
-  short:Math.max(1,parseInt(document.getElementById('inp-short').value)||5)*60,
-  long:Math.max(1,parseInt(document.getElementById('inp-long').value)||15)*60
-};}
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+  let mode = 'focus', running = false, remaining = 25 * 60, total = 25 * 60;
+  let ticker = null, endAt = 0, soundOn = true, sessionCount = 0;
 
-function updateRing(){
-  const r=remaining/total;
-  ring.style.strokeDashoffset=CIRC*(1-r);
-  if(running)ring.style.stroke=r>0.5?MODES[mode].color:r>0.2?'#FFB347':'#FF4A4A';
-  else ring.style.stroke=MODES[mode].color;
-  display.textContent=fmt(remaining);
-}
-
-function setMode(m){
-  mode=m;
-  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
-  pause();total=getDur()[mode];remaining=total;
-  stateLabel.textContent='Ready';ring.style.stroke=MODES[mode].color;updateRing();
-}
-
-function play(){
-  running=true;stateLabel.textContent=MODES[mode].state;
-  iPlay.style.display='none';iPause.style.display='block';
-  btnPlay.style.background=MODES[mode].color;
-  tick();ticker=setInterval(tick,1000);
-}
-
-function pause(){
-  running=false;clearInterval(ticker);
-  iPlay.style.display='block';iPause.style.display='none';
-  stateLabel.textContent=(remaining===0||remaining===total)?'Ready':'Paused';
-}
-
-function reset(){
-  pause();total=getDur()[mode];remaining=total;
-  stateLabel.textContent='Ready';ring.style.stroke=MODES[mode].color;updateRing();
-}
-
-function tick(){
-  if(remaining<=0){finish();return;}
-  remaining--;updateRing();
-  if(soundOn&&remaining>0&&remaining<=5)playBeep(220,.03);
-}
-
-function finish(){
-  pause();remaining=0;updateRing();stateLabel.textContent='Done ✓';
-  if(soundOn)playBell();
-  if(mode==='focus'){sessionCount++;addLog();renderDots();
-    setTimeout(()=>setMode(sessionCount%MAX===0?'long':'short'),1200);
-  } else {
-    setTimeout(()=>setMode('focus'),800);
+  // restore saved preferences (per-browser convenience only)
+  try {
+    const saved = JSON.parse(localStorage.getItem('ssl-focus') || '{}');
+    ['focus', 'short', 'long'].forEach(k => { if (saved[k]) inputs[k].value = saved[k]; });
+    if (saved.sound === false) soundOn = false;
+  } catch {}
+  function savePrefs() {
+    try {
+      localStorage.setItem('ssl-focus', JSON.stringify({
+        focus: inputs.focus.value, short: inputs.short.value, long: inputs.long.value, sound: soundOn
+      }));
+    } catch {}
   }
-}
 
-function addLog(){
-  document.getElementById('log-empty')?.remove();
-  const li=document.createElement('li');li.className='log-item';
-  const dur=getDur().focus/60;
-  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  li.innerHTML=`<span class="log-item-label">Focus #${sessionCount} · ${dur}min</span><span class="log-item-time">${t}</span>`;
-  document.getElementById('log-list').prepend(li);
-}
+  ring.style.strokeDasharray = CIRC;
+  ring.style.strokeDashoffset = 0;
 
-function renderDots(){
-  const d=document.getElementById('dots');d.innerHTML='';
-  const filled=sessionCount%MAX===0&&sessionCount>0?MAX:sessionCount%MAX;
-  for(let i=0;i<MAX;i++){
-    const dot=document.createElement('div');dot.className='dot';
-    if(i<filled)dot.classList.add('done');
-    d.appendChild(dot);
+  function getDur() {
+    return {
+      focus: Math.max(1, parseInt(inputs.focus.value) || 25) * 60,
+      short: Math.max(1, parseInt(inputs.short.value) || 5) * 60,
+      long:  Math.max(1, parseInt(inputs.long.value) || 15) * 60
+    };
   }
-}
+  const fmt = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
 
-let audioCtx=null;
-function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
-function playBeep(freq,gain){
-  try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();
-  o.connect(g);g.connect(c.destination);o.frequency.value=freq;
-  g.gain.setValueAtTime(gain,c.currentTime);
-  g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.15);
-  o.start();o.stop(c.currentTime+.15);}catch{}
-}
-function playBell(){[523,659,784].forEach((f,i)=>setTimeout(()=>playBeep(f,.1),i*150));}
+  function updateRing() {
+    const r = remaining / total;
+    ring.style.strokeDashoffset = CIRC * (1 - r);
+    ring.style.stroke = running ? (r > 0.5 ? MODES[mode].color : r > 0.2 ? '#ffb347' : '#ff6b85') : MODES[mode].color;
+    display.textContent = fmt(remaining);
+    document.title = running ? `${fmt(remaining)} · ${MODES[mode].label}` : BASE_TITLE;
+  }
 
-document.getElementById('btn-play').addEventListener('click',()=>running?pause():play());
-document.getElementById('btn-reset').addEventListener('click',reset);
-document.getElementById('btn-sound').addEventListener('click',()=>{
-  soundOn=!soundOn;
-  document.getElementById('icon-son').style.display=soundOn?'block':'none';
-  document.getElementById('icon-soff').style.display=soundOn?'none':'block';
-});
-document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
-['inp-focus','inp-short','inp-long'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{if(!running)reset();}));
-document.getElementById('btn-clear').addEventListener('click',()=>{
-  document.getElementById('log-list').innerHTML='';sessionCount=0;renderDots();
-  const e=document.createElement('li');e.className='log-empty';e.id='log-empty';
-  e.textContent='No sessions yet — start focusing.';
-  document.getElementById('log-list').appendChild(e);
-});
-document.addEventListener('keydown',e=>{
-  if(e.code==='Space'&&e.target===document.body){e.preventDefault();running?pause():play();}
-});
+  function setMode(m) {
+    mode = m;
+    document.documentElement.style.setProperty('--mode', MODES[m].color);
+    document.querySelectorAll('.mode-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    pause(); total = getDur()[mode]; remaining = total;
+    stateLabel.textContent = 'Ready'; updateRing();
+  }
 
-renderDots();updateRing();
-</script>
+  function play() {
+    if (remaining <= 0) reset();
+    running = true;
+    endAt = Date.now() + remaining * 1000;   // wall-clock based so background tabs stay accurate
+    stateLabel.textContent = MODES[mode].state;
+    iPlay.style.display = 'none'; iPause.style.display = 'block';
+    btnPlay.setAttribute('aria-label', 'Pause');
+    updateRing();
+    ticker = setInterval(tick, 250);
+  }
+
+  function pause() {
+    running = false; clearInterval(ticker);
+    iPlay.style.display = 'block'; iPause.style.display = 'none';
+    btnPlay.setAttribute('aria-label', 'Start');
+    stateLabel.textContent = (remaining === 0 || remaining === total) ? 'Ready' : 'Paused';
+    document.title = BASE_TITLE;
+  }
+
+  function reset() {
+    pause(); total = getDur()[mode]; remaining = total;
+    stateLabel.textContent = 'Ready'; updateRing();
+  }
+
+  function tick() {
+    const next = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
+    if (next === remaining) return;
+    remaining = next; updateRing();
+    if (soundOn && remaining > 0 && remaining <= 5) playBeep(220, .03);
+    if (remaining <= 0) finish();
+  }
+
+  function finish() {
+    pause(); remaining = 0; updateRing(); stateLabel.textContent = 'Done ✓';
+    if (soundOn) playBell();
+    if (mode === 'focus') {
+      sessionCount++; addLog(); renderDots();
+      setTimeout(() => setMode(sessionCount % MAX === 0 ? 'long' : 'short'), 1200);
+    } else {
+      setTimeout(() => setMode('focus'), 800);
+    }
+  }
+
+  function addLog() {
+    $('log-empty')?.remove();
+    const li = document.createElement('li'); li.className = 'log-item';
+    const t = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    li.innerHTML = `<span>Focus #${sessionCount} · ${getDur().focus / 60} min</span><span class="log-item-time">${t}</span>`;
+    $('log-list').prepend(li);
+  }
+
+  function renderDots() {
+    const d = $('dots'); d.innerHTML = '';
+    const filled = sessionCount % MAX === 0 && sessionCount > 0 ? MAX : sessionCount % MAX;
+    for (let i = 0; i < MAX; i++) {
+      const dot = document.createElement('div'); dot.className = 'dot';
+      if (i < filled) dot.classList.add('done');
+      d.appendChild(dot);
+    }
+  }
+
+  let audioCtx = null;
+  const getCtx = () => (audioCtx ||= new (window.AudioContext || window.webkitAudioContext)());
+  function playBeep(freq, gain) {
+    try {
+      const c = getCtx(), o = c.createOscillator(), g = c.createGain();
+      o.connect(g); g.connect(c.destination); o.frequency.value = freq;
+      g.gain.setValueAtTime(gain, c.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .15);
+      o.start(); o.stop(c.currentTime + .15);
+    } catch {}
+  }
+  const playBell = () => [523, 659, 784].forEach((f, i) => setTimeout(() => playBeep(f, .1), i * 150));
+
+  function renderSound() {
+    $('icon-son').style.display = soundOn ? 'block' : 'none';
+    $('icon-soff').style.display = soundOn ? 'none' : 'block';
+    $('btn-sound').setAttribute('aria-pressed', String(soundOn));
+    $('btn-sound').setAttribute('aria-label', soundOn ? 'Sound on' : 'Sound off');
+  }
+
+  btnPlay.addEventListener('click', () => running ? pause() : play());
+  $('btn-reset').addEventListener('click', reset);
+  $('btn-sound').addEventListener('click', () => { soundOn = !soundOn; renderSound(); savePrefs(); });
+  document.querySelectorAll('.mode-btn').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  Object.values(inputs).forEach(inp => inp.addEventListener('change', () => { savePrefs(); if (!running) reset(); }));
+  $('btn-clear').addEventListener('click', () => {
+    $('log-list').innerHTML = ''; sessionCount = 0; renderDots();
+    const e = document.createElement('li'); e.className = 'log-empty'; e.id = 'log-empty';
+    e.textContent = 'No sessions yet — start focusing.';
+    $('log-list').appendChild(e);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space' && !e.target.closest('input, button, a, textarea, select')) {
+      e.preventDefault(); running ? pause() : play();
+    }
+  });
+
+  renderSound(); renderDots(); setMode('focus');
+  </script>
 </body>
 </html>
-

@@ -1,117 +1,190 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EasyEye Privacy Policy — Stillstack Labs</title>
-<style>
-  :root {
-    --bg: #0d0d0f; --bg2: #161619; --bg3: #1f1f24;
-    --accent: #00e5ff; --fg: #e8e8f0; --fg-dim: #8a8a96;
-  }
-  * { box-sizing: border-box; }
-  body {
-    background: var(--bg); color: var(--fg);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6; margin: 0; padding: 0;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
-  h1 { color: var(--accent); font-family: 'Courier New', monospace; font-size: 1.6rem; margin-bottom: 4px; }
-  .meta { color: var(--fg-dim); font-size: 0.85rem; margin-bottom: 32px; }
-  h2 {
-    color: var(--accent); font-family: 'Courier New', monospace;
-    font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
-    border-bottom: 1px solid var(--bg3); padding-bottom: 8px; margin-top: 40px;
-  }
-  p, li { color: var(--fg); font-size: 0.95rem; }
-  ul { padding-left: 1.2em; }
-  code { background: var(--bg3); padding: 1px 6px; border-radius: 3px; font-size: 0.85em; }
-  a { color: var(--accent); }
-  .note {
-    background: var(--bg2); border-left: 3px solid var(--accent);
-    padding: 12px 16px; margin-top: 40px; font-size: 0.85rem; color: var(--fg-dim);
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EasyEye Privacy Policy · Stillstack Labs</title>
+  <meta name="description" content="What data EasyEye handles, where it goes, and what stays entirely on your device. No analytics, no telemetry, no uploads." />
+  <link rel="canonical" href="https://stillstacklabs.com/privacy.html" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta property="og:title" content="EasyEye Privacy Policy · Stillstack Labs" />
+  <meta property="og:url" content="https://stillstacklabs.com/privacy.html" />
+  <meta property="og:image" content="https://stillstacklabs.com/assets/img/og.png" />
+
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css?v=5" />
+  <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<div class="wrap">
-  <h1>EasyEye Privacy Policy</h1>
-  <div class="meta">Stillstack Labs &nbsp;·&nbsp; Last updated: 2026-09-04</div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <p>
-    EasyEye is a Windows application that turns a webcam into a motion-detection
-    recorder. This page explains what data EasyEye handles, where it goes, and
-    what stays entirely on your device.
-  </p>
+  <header class="site-nav">
+    <div class="wrap">
+      <a href="/" class="brand" aria-label="Stillstack Labs home">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><g stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="4"/><path d="M18 9C17 14 16 18 16 21"/><path d="M16 14C12 17 9 20 7 23"/><path d="M16 14C20 17 23 20 25 23"/><path d="M16 21C13 24 9 26 5 26"/><path d="M16 21C19 24 23 26 27 26"/><path d="M5 26C6 28 8 29 10 28"/><path d="M27 26C26 28 24 29 22 28"/><ellipse cx="16" cy="30" rx="12" ry="3" stroke-width="1.4" opacity=".5"/></g></svg>
+        <span class="brand-name">StillStack<small>LABS</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <nav aria-label="Main">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/products.html">Products</a></li>
+          <li><a href="/easyeye.html">EasyEye</a></li>
+          <li><a href="/pomodoro.html">Focus Timer</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://apps.microsoft.com/detail/9NPCZFDLNNWH?cid=stillstacklabs-nav">Get EasyEye</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <h2>What EasyEye stores locally</h2>
-  <ul>
-    <li><strong>Video clips and snapshots</strong> — saved only to the folder you choose on your own PC (by default, a folder under your Documents). EasyEye does not upload clips to Stillstack Labs or any third-party server.</li>
-    <li><strong>Settings</strong> — camera preference, sensitivity, retention, schedule, and similar preferences are stored in a local config file in your Documents folder.</li>
-    <li><strong>Gmail app password (optional)</strong> — if you enable email alerts, your Gmail app password is stored using the <strong>Windows Credential Manager</strong>, the same secure OS-level vault used by browsers and other Windows apps. It is never written to a plain text file and never transmitted to Stillstack Labs.</li>
-  </ul>
+  <main id="main">
+    <section class="page-head" style="padding-bottom:32px">
+      <div class="wrap">
+        <p class="eyebrow">◈ Legal</p>
+        <h1 class="h-display" style="font-size:clamp(40px,6vw,64px)">EasyEye Privacy Policy</h1>
+        <p class="meta-line">Stillstack Labs &nbsp;·&nbsp; Last updated: 2026-09-04</p>
+        <ul class="toc" aria-label="On this page">
+          <li><a href="#stores">Stored locally</a></li>
+          <li><a href="#leaves">Leaving your device</a></li>
+          <li><a href="#not">What it doesn’t do</a></li>
+          <li><a href="#camera">Camera</a></li>
+          <li><a href="#choices">Your choices</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </section>
 
-  <h2>Where data leaves your device</h2>
-  <ul>
-    <li><strong>Email alerts (optional)</strong> — if enabled, EasyEye connects directly to Gmail's SMTP server (<code>smtp.gmail.com</code>) using your credentials to send you a motion snapshot by email. This connection is between your PC and Google; Stillstack Labs is not in the middle of it and does not receive a copy.</li>
-    <li><strong>Cloud storage (optional)</strong> — if you point your clips folder at a OneDrive (or similar) folder, syncing is handled entirely by that provider's own client software, under their own privacy policy. EasyEye has no integration with or visibility into that sync.</li>
-  </ul>
+    <section style="padding-bottom:112px">
+      <div class="wrap">
+        <article class="prose">
+          <p>
+            EasyEye is a Windows application that turns a webcam into a motion-detection
+            recorder. This page explains what data EasyEye handles, where it goes, and
+            what stays entirely on your device.
+          </p>
 
-  <h2>What EasyEye does not do</h2>
-  <ul>
-    <li>No analytics, telemetry, or usage tracking.</li>
-    <li>No advertising or ad identifiers.</li>
-    <li>No account or sign-in required.</li>
-    <li>No sale or sharing of any data — there is no data collected by Stillstack Labs to sell or share in the first place.</li>
-  </ul>
+          <h2 id="stores">What EasyEye stores locally</h2>
+          <ul>
+            <li><strong>Video clips and snapshots</strong> — saved only to the folder you choose on your own PC (by default, a folder under your Documents). EasyEye does not upload clips to Stillstack Labs or any third-party server.</li>
+            <li><strong>Settings</strong> — camera preference, sensitivity, retention, schedule, and similar preferences are stored in a local config file in your Documents folder.</li>
+            <li><strong>Gmail app password (optional)</strong> — if you enable email alerts, your Gmail app password is stored using the <strong>Windows Credential Manager</strong>, the same secure OS-level vault used by browsers and other Windows apps. It is never written to a plain text file and never transmitted to Stillstack Labs.</li>
+          </ul>
 
-  <h2>Camera access</h2>
-  <p>
-    EasyEye accesses your webcam only while running and only to display a
-    live preview and perform on-device motion detection. Video is processed
-    locally; no frames are sent anywhere unless you have enabled email
-    alerts (a single snapshot per motion event, sent to the address you
-    configured) or chosen to store clips in a cloud-synced folder you control.
-  </p>
+          <h2 id="leaves">Where data leaves your device</h2>
+          <ul>
+            <li><strong>Email alerts (optional)</strong> — if enabled, EasyEye connects directly to Gmail's SMTP server (<code>smtp.gmail.com</code>) using your credentials to send you a motion snapshot by email. This connection is between your PC and Google; Stillstack Labs is not in the middle of it and does not receive a copy.</li>
+            <li><strong>Cloud storage (optional)</strong> — if you point your clips folder at a OneDrive (or similar) folder, syncing is handled entirely by that provider's own client software, under their own privacy policy. EasyEye has no integration with or visibility into that sync.</li>
+          </ul>
 
-  <h2>Your choices</h2>
-  <ul>
-    <li>Delete clips at any time via the app or by deleting the files directly.</li>
-    <li>Disable or remove email alerts at any time from the Alerts panel.</li>
-    <li>Set an automatic retention period to delete old clips automatically.</li>
-    <li>Uninstall the app to remove it. A few things are deliberately left in place so you don't lose data, and you can remove them yourself:
-      <ul>
-        <li><strong>Clips</strong> — your clips folder and its contents stay where they are; delete the files or folder yourself if you no longer want them.</li>
-        <li><strong>Settings</strong> — the config file lives in <code>Documents\EasyEye\</code>; delete that folder to remove it.</li>
-        <li><strong>Gmail app password</strong> — if you enabled email alerts, the stored password remains in Windows Credential Manager as an entry named <code>EasyEye-StillstackLabs</code>. Remove it via Control Panel → Credential Manager → Windows Credentials, or by deleting the password in the app's Alerts panel before uninstalling.</li>
-        <li><strong>Launch at startup</strong> — if you turned this on from inside the app, the startup entry may remain as a value named <code>EasyEye</code> under <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code>. Turn the option off in the app before uninstalling, or remove the entry in Task Manager's Startup apps tab.</li>
-      </ul>
-    </li>
-  </ul>
+          <h2 id="not">What EasyEye does not do</h2>
+          <ul>
+            <li>No analytics, telemetry, or usage tracking.</li>
+            <li>No advertising or ad identifiers.</li>
+            <li>No account or sign-in required.</li>
+            <li>No sale or sharing of any data — there is no data collected by Stillstack Labs to sell or share in the first place.</li>
+          </ul>
 
-  <h2>Children</h2>
-  <p>
-    EasyEye is not directed at children under 13. It collects no personal
-    information from anyone, children included.
-  </p>
+          <h2 id="camera">Camera access</h2>
+          <p>
+            EasyEye accesses your webcam only while running and only to display a
+            live preview and perform on-device motion detection. Video is processed
+            locally; no frames are sent anywhere unless you have enabled email
+            alerts (a single snapshot per motion event, sent to the address you
+            configured) or chosen to store clips in a cloud-synced folder you control.
+          </p>
 
-  <h2>Changes to this policy</h2>
-  <p>
-    Any updates to this policy are posted on this page with a revised
-    "Last updated" date.
-  </p>
+          <h2 id="choices">Your choices</h2>
+          <ul>
+            <li>Delete clips at any time via the app or by deleting the files directly.</li>
+            <li>Disable or remove email alerts at any time from the Alerts panel.</li>
+            <li>Set an automatic retention period to delete old clips automatically.</li>
+            <li>Uninstall the app to remove it. A few things are deliberately left in place so you don't lose data, and you can remove them yourself:
+              <ul>
+                <li><strong>Clips</strong> — your clips folder and its contents stay where they are; delete the files or folder yourself if you no longer want them.</li>
+                <li><strong>Settings</strong> — the config file lives in <code>Documents\EasyEye\</code>; delete that folder to remove it.</li>
+                <li><strong>Gmail app password</strong> — if you enabled email alerts, the stored password remains in Windows Credential Manager as an entry named <code>EasyEye-StillstackLabs</code>. Remove it via Control Panel → Credential Manager → Windows Credentials, or by deleting the password in the app's Alerts panel before uninstalling.</li>
+                <li><strong>Launch at startup</strong> — if you turned this on from inside the app, the startup entry may remain as a value named <code>EasyEye</code> under <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code>. Turn the option off in the app before uninstalling, or remove the entry in Task Manager's Startup apps tab.</li>
+              </ul>
+            </li>
+          </ul>
 
-  <h2>Contact</h2>
-  <p>
-    Questions about this policy: <a href="https://stillstacklabs.com/#contact">stillstacklabs.com/#contact</a>
-  </p>
+          <h2 id="children">Children</h2>
+          <p>
+            EasyEye is not directed at children under 13. It collects no personal
+            information from anyone, children included.
+          </p>
 
-  <div class="note">
-    This policy is written in plain language to describe EasyEye's actual
-    behavior as shipped. It is provided by Stillstack Labs and is not a
-    substitute for legal advice — if you have specific compliance
-    requirements, have this reviewed by a lawyer before relying on it.
-  </div>
-</div>
+          <h2 id="changes">Changes to this policy</h2>
+          <p>
+            Any updates to this policy are posted on this page with a revised
+            "Last updated" date.
+          </p>
+
+          <h2 id="contact">Contact</h2>
+          <p>
+            Questions about this policy: <a href="https://stillstacklabs.com/#contact">stillstacklabs.com/#contact</a>
+          </p>
+
+          <div class="note">
+            This policy is written in plain language to describe EasyEye's actual
+            behavior as shipped. It is provided by Stillstack Labs and is not a
+            substitute for legal advice — if you have specific compliance
+            requirements, have this reviewed by a lawyer before relying on it.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="brand" aria-label="Stillstack Labs home">
+            <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><g stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="4"/><path d="M18 9C17 14 16 18 16 21"/><path d="M16 14C12 17 9 20 7 23"/><path d="M16 14C20 17 23 20 25 23"/><path d="M16 21C13 24 9 26 5 26"/><path d="M16 21C19 24 23 26 27 26"/><path d="M5 26C6 28 8 29 10 28"/><path d="M27 26C26 28 24 29 22 28"/><ellipse cx="16" cy="30" rx="12" ry="3" stroke-width="1.4" opacity=".5"/></g></svg>
+            <span class="brand-name">StillStack<small>LABS</small></span>
+          </a>
+          <p>Focused Windows software. Pay once, keep it forever.</p>
+        </div>
+        <div>
+          <h4>Products</h4>
+          <ul>
+            <li><a href="/easyeye.html">EasyEye</a></li>
+            <li><a href="/products.html">All products</a></li>
+            <li><a href="/pomodoro.html">Focus Timer</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/products.html#notify">Release updates</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy.html">EasyEye privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span><strong>STILLSTACK LABS</strong> — © <span data-year>2026</span></span>
+        <span>Virginia Beach, VA</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/site.js?v=5" defer></script>
 </body>
 </html>
